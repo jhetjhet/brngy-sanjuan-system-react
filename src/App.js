@@ -54,8 +54,13 @@ function App() {
             <Route path="users/history" element={<UsersHistoryPage />} />
             <Route path="records">
               <Route path="" element={<Records />} />
-              <Route path=":recordID" element={<RecordDetail />} />
-              <Route path=":recordID/:index" element={<EditRecordPage />} />
+              <Route path=":recordID">
+                <Route path="" element={<RecordDetail />} />
+                <Route path="edit/:index" element={<EditRecordPage />} />
+                <Route path="add" element={<EditRecordPage />} />
+              </Route>
+              {/* <Route path=":recordID" element={<RecordDetail />} />
+              <Route path=":recordID/:index" element={<EditRecordPage />} /> */}
               <Route path="import" element={<ImportRecordPage />} />
             </Route>
           </Route>

@@ -1,9 +1,13 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Fragment, useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Input from "../../Input";
 import PhotoInput from "../../PhotoInput";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faArrowLeftLong,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function EditRecordPage() {
     const DEFAULT_FIELDS = {
@@ -25,10 +29,17 @@ export default function EditRecordPage() {
 
     const [fields, setFields] = useState({ ...DEFAULT_FIELDS });
     const [photoUrl, setPhotoUrl] = useState();
+    const [isAdd, setIsAdd] = useState(false);
 
     const params = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
+        if (!params.index) {
+            setIsAdd(true);
+            return;
+        }
+
         axios.get(`${process.env.REACT_APP_BASE_URL}/api/dataset/${params.recordID}/index/${params.index}`).then((resp) => {
             const data = resp.data;
             const newFields = {};
@@ -48,18 +59,29 @@ export default function EditRecordPage() {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        axios.post(`${process.env.REACT_APP_BASE_URL}/api/dataset/${params.recordID}/index/${params.index}/`, fields).then((resp) => {
-            console.log(resp.data);
-        });
+        if (!isAdd)
+            axios.put(`${process.env.REACT_APP_BASE_URL}/api/dataset/${params.recordID}/index/${params.index}/`, fields).then((resp) => {
+                console.log(resp.data);
+            });
+        else
+            axios.post(`${process.env.REACT_APP_BASE_URL}/api/dataset/${params.recordID}/index/`, fields).then((resp) => {
+                console.log(resp.data);
+            });
+        navigate(`/records/${params.recordID}/`, { replace: true })
     }
 
     return (
-        <div className="mt-8">
+        <div className="mt-4">
+            <div className="m-3">
+                <Link to={`/records/${params.recordID}/`} replace>
+                    <FontAwesomeIcon icon={faArrowLeftLong} size="2xl" />
+                </Link>
+            </div>
             <form onSubmit={onSubmit}>
                 <div className="mx-2 ">
                     <div className="max-w-xl bg-gray-100">
                         <div className="w-full mb-3">
-                            <PhotoInput 
+                            <PhotoInput
                                 initSrc={photoUrl}
                             />
                         </div>

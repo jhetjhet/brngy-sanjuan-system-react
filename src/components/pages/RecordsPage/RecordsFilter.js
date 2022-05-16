@@ -21,6 +21,7 @@ function RecordsFilter({ children, recordID, page, ordering, gender, religion, s
 
         const params = {
             __dropna__axis: 1,
+            __dropna__how: 'all',
             ordering: ordering,
             page,
             columns: 'Family Name,First Name,Middle Name,Gender,Place of Birth,House Number,Religion,\'Street, Purok, Sitio, Subd.\',Educational Attainment,'

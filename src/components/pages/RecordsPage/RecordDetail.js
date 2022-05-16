@@ -1,13 +1,17 @@
 import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Pagination from "../../Pagination";
 import SearchbarInput from "../../SearchbarInput";
 import Select from "../../Select";
 import Table from "../../Table";
 import RecordsFilter from "./RecordsFilter";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faArrowLeftLong,
+} from "@fortawesome/free-solid-svg-icons";
 
 const DATAFRAME_COLUMNS = [
     {
@@ -68,7 +72,8 @@ export default function RecordDetail() {
     const [cookies] = useCookies();
 
     useEffect(() => {
-        console.log(params.recordID)
+        if(!params.recordID)
+            return;
         axios.get(`${process.env.REACT_APP_BASE_URL}/api/dataset/${params.recordID}/filters`, {
             headers: {
                 Authorization: `Token ${cookies[process.env.REACT_APP_AUTH_TOKEN]}`,
@@ -88,9 +93,19 @@ export default function RecordDetail() {
 
     return (
         <div className="mt-4">
+            <div className="m-3">
+                <Link to={`/records/`} replace>
+                    <FontAwesomeIcon icon={faArrowLeftLong} size="2xl" />
+                </Link>
+            </div>
             <div className="w-full flex flex-col items-center justify-center mb-4">
-                <div className="w-full max-w-sm">
-                    <SearchbarInput onSubmit={setSearch} />
+                <div className="w-full flex items-center justify-center">
+                    <div className="w-full max-w-sm">
+                        <SearchbarInput onSubmit={setSearch} />
+                    </div>
+                    <Link to="add" className="px-6 py-2 bg-green-900 ml-3 rounded-lg text-white hover:bg-green-700">
+                        add
+                    </Link>
                 </div>
                 <div className="w-4/5 flex space-x-2 justify-center mt-2">
                     <div className="w-full max-w-lg">
@@ -143,7 +158,7 @@ export default function RecordDetail() {
                         <Fragment>
                             <Table
                                 columns={[...columns, 'Edit']}
-                                rows={rows.map((d, i) => [...d, {value: 'edit', link: `/records/${params.recordID}/${index[i]}`}])}
+                                rows={rows.map((d, i) => [...d, {value: 'edit', link: `/records/${params.recordID}/edit/${index[i]}`}])}
                             />
                             {(data && data.page_count > 1) && (
                                 <div className="w-full flex mt-3">

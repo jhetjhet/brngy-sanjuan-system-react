@@ -17,7 +17,7 @@ function PhotoInput({ initSrc }) {
 }
 
 PhotoInput.propTypes = {
-    initSrc: ProptTypes.string.isRequired,
+    initSrc: ProptTypes.string,
 }
 
 export default PhotoInput;
