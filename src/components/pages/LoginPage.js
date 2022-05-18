@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import sanjuanlogo from "../../assets/sanjuan-logo.png";
 import { useAthentication } from "../Authentication";
 
@@ -57,7 +57,9 @@ export default function LoginPage() {
         <div className="min-h-full flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-gray-100 h-screen">
             <div className="max-w-md w-full space-y-8">
                 <div>
-                    <img className="mx-auto h-20 w-auto" src={sanjuanlogo} alt="Workflow" />
+                    <Link to={"/"} replace>
+                        <img className="mx-auto h-20 w-auto" src={sanjuanlogo} alt="Workflow" />
+                    </Link>
                     <h1 className="text-center mt-3 font-bold text-2xl text-broom-500">Barangay San Juan</h1>
                 </div>
                 <form className="mt-8 space-y-6" onSubmit={onSubmit} >
