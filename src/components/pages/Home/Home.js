@@ -12,7 +12,7 @@ export default function Home() {
     const INTERESTS_OPTIONS = [
         {
             label: 'Record of Barangay Inhabitant',
-            value: '/chart',
+            value: '/init',
         },
         {
             label: 'List of Voters',

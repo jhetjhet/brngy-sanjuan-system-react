@@ -15,6 +15,7 @@ import Records from "./components/pages/RecordsPage/Records";
 import RecordDetail from "./components/pages/RecordsPage/RecordDetail";
 import UsersHistoryPage from "./components/pages/Users/UsersHistoryPage";
 import EditRecordPage from "./components/pages/RecordsPage/EditRecordPage";
+import DefaultPage from "./components/pages/DefaultPage";
 
 
 function App() {
@@ -31,26 +32,37 @@ function App() {
               </PrivateRoute>
             }
           >
-            <Route path="chart" element={
-              <Printable>
-                <GenderChartPage />
-              </Printable>
-            } />
-            <Route path="chart/gender" element={
-              <Printable>
-                <GenderChartPage />
-              </Printable>
-            } />
-            <Route path="chart/religion" element={
-              <Printable>
-                <ReligionChartPage />
-              </Printable>
-            } />
-            <Route path="chart/educatt" element={
-              <Printable>
-                <EducAttChartPage />
-              </Printable>
-            } />
+            <Route 
+              path="init"
+              element={
+                <PrivateRoute>
+                  <DefaultPage />
+                </PrivateRoute>
+              }
+            />
+            <Route path="chart">
+              <Route path="" element={
+                <Printable>
+                  <GenderChartPage />
+                </Printable>
+              } />
+              <Route path="gender" element={
+                <Printable>
+                  <GenderChartPage />
+                </Printable>
+              } />
+              <Route path="religion" element={
+                <Printable>
+                  <ReligionChartPage />
+                </Printable>
+              } />
+              <Route path="educatt" element={
+                <Printable>
+                  <EducAttChartPage />
+                </Printable>
+              } />
+            </Route>
+
             <Route path="users/history" element={<UsersHistoryPage />} />
             <Route path="records">
               <Route path="" element={<Records />} />
