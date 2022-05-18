@@ -15,10 +15,6 @@ export default function Home() {
             value: '/chart',
         },
         {
-            label: 'Business Establishments',
-            value: '/business establishments',
-        },
-        {
             label: 'List of Voters',
             value: '/voters',
         },
