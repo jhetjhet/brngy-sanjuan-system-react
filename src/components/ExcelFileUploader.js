@@ -14,7 +14,7 @@ function ExcelFileUploader() {
     const [cookies] = useCookies();
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/dataset/loaded/', {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/dataset/loaded/`, {
             headers: {
                 Authorization: `Token ${cookies[process.env.REACT_APP_AUTH_TOKEN]}`,
             }
@@ -32,7 +32,7 @@ function ExcelFileUploader() {
             const data = new FormData();
             data.append('file', excel, excel.name);
             
-            axios.post('http://localhost:8000/api/dataset/', data, {
+            axios.post(`${process.env.REACT_APP_BASE_URL}/api/dataset/`, data, {
                 headers: {
                     Authorization: `Token ${cookies[process.env.REACT_APP_AUTH_TOKEN]}`,
                 },
