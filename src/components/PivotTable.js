@@ -9,7 +9,7 @@ function PivotTable({ index, values, columns, aggfunc, onLoad }) {
     const [cookies] = useCookies();
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/dataset/loaded/', {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/dataset/loaded/`, {
             headers: {
                 Authorization: `Token ${cookies[process.env.REACT_APP_AUTH_TOKEN]}`,
             }
@@ -29,7 +29,7 @@ function PivotTable({ index, values, columns, aggfunc, onLoad }) {
             aggfunc: aggfunc,
         }
 
-        axios.get(`http://localhost:8000/api/dataset/${loadedExcel}/pivot/`, {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/dataset/${loadedExcel}/pivot/`, {
             params,
             headers: {
                 Authorization: `Token ${cookies[process.env.REACT_APP_AUTH_TOKEN]}`,

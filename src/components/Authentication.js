@@ -18,7 +18,7 @@ export function AuthenticationProvider({ children }){
         const data = new FormData();
         data.append('username', username);
         data.append('password', password);
-        axios.post('http://localhost:8000/auth/token/login/', data).then((resp) => {
+        axios.post(`${process.env.REACT_APP_BASE_URL}/auth/token/login/`, data).then((resp) => {
             if(cb)
                 cb(resp, null);
         }).catch((err) => {
@@ -29,7 +29,7 @@ export function AuthenticationProvider({ children }){
 
     const logout = () => {
         const auth_token = cookies[process.env.REACT_APP_AUTH_TOKEN];
-        axios.post('http://localhost:8000/auth/token/logout/', {}, {
+        axios.post(`${process.env.REACT_APP_BASE_URL}/auth/token/logout/`, {}, {
             headers: {
                 Authorization: `Token ${auth_token}`,
             },
@@ -42,7 +42,7 @@ export function AuthenticationProvider({ children }){
 
     const getuser = (cb) => {
         const auth_token = cookies[process.env.REACT_APP_AUTH_TOKEN];
-        axios.get('http://localhost:8000/auth/users/me/', {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/auth/users/me/`, {
             headers: {
                 Authorization: `Token ${auth_token}`,
             },
